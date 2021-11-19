@@ -1,9 +1,4 @@
 //
-// Created by liorlevy on 17/11/2021.
-//
-
-//#include "Customer.h"
-//
 // Created by ellabeeri on 10/11/2021.
 //
 #include "Customer.h"
@@ -23,6 +18,8 @@ int Customer::getId() const {
     return id;
 }
 
+
+
 SweatyCustomer::SweatyCustomer(std::string name, int id) : Customer(name, id) {
 
 }
@@ -31,10 +28,10 @@ std::vector<int> SweatyCustomer::order(const std::vector<Workout> &workout_optio
     std::vector<int> output;
     for(int i=0;i<workout_options.size();i++)
     {
-        if(workout_options[i].getType()==WorkoutType::CARDIO)
-        {
-            output.push_back(workout_options[i].getId());
-        }
+     if(workout_options[i].getType()==WorkoutType::CARDIO)
+     {
+         output.push_back(workout_options[i].getId());
+     }
     }
     return  output;
 
@@ -52,10 +49,10 @@ CheapCustomer::CheapCustomer(std::string name, int id) : Customer(name, id) {
 
 std::vector<int> CheapCustomer::order(const std::vector<Workout> &workout_options) {
     std::vector<int> output;
-    int min1 = std::min(cheapestWOIdByType(WorkoutType::ANAEROBIC, workout_options), cheapestWOIdByType(WorkoutType::CARDIO,workout_options));
-    int min2= std::min(min1,cheapestWOIdByType(WorkoutType::MIXED,workout_options));
-    if(min2<std::numeric_limits<int>::max());
-    output.push_back(min2);
+    int tmpMin = std::min(cheapestWOIdByType(WorkoutType::ANAEROBIC, workout_options), cheapestWOIdByType(WorkoutType::CARDIO,workout_options));
+    int min= std::min(tmpMin,cheapestWOIdByType(WorkoutType::MIXED,workout_options));
+    if(min<std::numeric_limits<int>::max());
+        output.push_back(min);
     return output;
 
 
@@ -117,9 +114,10 @@ std::vector<int> FullBodyCustomer::order(const std::vector<Workout> &workout_opt
 
 std::string FullBodyCustomer::toString() const {
     return std::string();
+
 }
 
-int cheapestWOIdByType(WorkoutType type, const std::vector<Workout> &vector) {
+int Customer::cheapestWOIdByType(WorkoutType type, const std::vector<Workout> &vector) {
     int cheapest = std::numeric_limits<int>::max();
     int cheapestID = std::numeric_limits<int>::max();
     for (int i = 0; i < vector.size(); ++i) {
@@ -130,8 +128,7 @@ int cheapestWOIdByType(WorkoutType type, const std::vector<Workout> &vector) {
     }
     return cheapestID;
 }
-
-int expensiveWOIdByType(WorkoutType type, const std::vector<Workout> &vector) {
+int Customer::expensiveWOIdByType(WorkoutType type, const std::vector<Workout> &vector) {
     int expensive = std::numeric_limits<int>::max();
     int expensiveID = std::numeric_limits<int>::max();
     for (int i = 0; i < vector.size(); ++i) {
@@ -141,4 +138,5 @@ int expensiveWOIdByType(WorkoutType type, const std::vector<Workout> &vector) {
         }
     }
     return expensiveID;
+
 }
